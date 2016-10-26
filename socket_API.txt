@@ -5,3 +5,72 @@ int accept(int s, struct sockaddr *addr, socklen_t *addrlen)
 /* s - listening socket descriptor
 *  addr - is a pointer to the address of connecting host
 *  addrlen - is a pointer to the length of address of connecting host */
+/* accept function returns integer which is the new socket file descriptor for the accepted connection */
+
+2. BIND FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int bind(int s, struct sockaddr *addr, int addrlen)
+/* s - socket file descriptor 
+*  addr - is a pointer to the address of the server
+*  addrlen - is a length of that address */
+
+3. CONNECT FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int connect(int s, struct sockaddr *addr, int addrlen)
+/* s - socket file descriptor
+*  addr - is a pointer to the server's address and port
+*  addrlen - is a length of the server's address */
+
+4. LISTEN FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int listen(int s, int backlog)
+/* s - socket file descriptor
+*  backlog - is the number of incomming connection requests which are put in the queue */
+
+5. SOCKET FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int socket(int proto_family, int proto_type, int protocol)
+/* proto_family - is the protocol family: PF_INET, PF_UNIX
+*  proto_type - is the protocol type: SOCK_STREAM, SOCK_DGRAM
+*  protocol - is the protocol name: tcp, udp, etc */
+
+6. SEND FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int send(int s, void *msg, int len, int flags)
+/* s - is a socket file descriptor to send data to, commonly which created by the accept function
+*  msg - is a generic pointer to the data you want to send
+*  len - is the length of the sending data in bytes
+*  flags - is integer flag, by default is zero */
+/* send function returns the number of actually sent bytes and you must compare this
+*  return value with the number of bytes you intended to send */
+
+7. RECV FUNCTION
+#include <sys/types.h>
+#include <sys/socket.h>
+int recv(int s, void *buf, int len, int flags)
+/* s - is a socket file descriptor to receive data from
+*  buf - is a pointer to a buffer to receive data from
+*  len - is the length of buffer to receive data from
+*  flags - is the integer flag, by default zero */
+/* recv function returns the number of bytes read from the buffer.
+   If recv returns 0 , you know that other end closed connection */
+
+8. CLOSE FUNCTION
+#include <unistd.h>
+int close(int s);
+/* s - socket file descriptor */
+
+9. SHUTDOWN FUNCTION
+#include <sys/socket.h>
+int shutdown(int s, int type)
+/* s - socket file descriptor,but shutdown doesn't close socket file descriptor,to close it
+*  you still need to use close() function.
+   type - there are 3 of them: 
+   0 - no more receives;
+   1 - no more sends;
+   2 - no more sends and receives; */
