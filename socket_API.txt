@@ -74,3 +74,16 @@ int shutdown(int s, int type)
    0 - no more receives;
    1 - no more sends;
    2 - no more sends and receives; */
+   
+10. GETADDRINFO FUNCTION
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <netdb.h>
+int getaddrinfo(const char *addr, const char *service,
+                  const struct addrinfo *source, struct addrinfo **result)
+/* addr - is a pointer to internet domain address or IP address 
+*  service - is a pointer to numeric port or service name like "udp", "tcp", etc
+*  source - is a pointer to struct addrinfo which we populate when provide arguments *addr and *service
+*  result - is a pointer to a linked-list of found addrinfo structs
+/* NOTICE: after using getaddrinfo function we need to free allocated linked list of structures "result"
+*  with call:  freeaddrinfo(result);
