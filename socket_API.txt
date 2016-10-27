@@ -87,3 +87,40 @@ int getaddrinfo(const char *addr, const char *service,
 *  result - is a pointer to a linked-list of found addrinfo structs
 /* NOTICE: after using getaddrinfo function we need to free allocated linked list of structures "result"
 *  with call:  freeaddrinfo(result);
+
+11. GETPEERNAME FUNCTION
+#include <sys/socket.h>
+int getpeername(int s, struct sockaddr *s_addr, socklen_t *length)
+/* s - socket file descriptor 
+*  addr - is a pointer to struct containing peer's information
+* length - is a pointer to variable holding the length of peer's address struct */
+
+12. INET_NTOP FUNCTION
+#include <arpa/inet.h>
+const char *inet_ntop(int af, const void *src, char *dst, socklen_t size)
+/* af - address family: AF_INET, AF_INET6
+*  src - is a pointer to struct: in_addr or in6_addr
+*  dst - is a pointer to string where we want to place text presentation of internet address
+*  size - is a maximum size in bytes of text presentation string
+*  for the size use one of these macros: INET_ADDRSTRLEN, INET6_ADDRSTRLEN
+*  this function returns dst pointer on success or NULL on failure */
+
+13. INET_PTON FUNCTION
+#incldude <arpa/inet.h>
+int inet_pton(int af, const char *src, void *dst)
+/* af - address family: AF_INET, AF_INET6
+*  src - is a pointer to const string holding text presentation of internet address (suppose "24.77.91.74")
+* this function used when we need to pack string presentation of internet address into
+* struct in_addr or in6_addr  
+* this function returns 1 on success, -1 on failure, 0 when src isn't correct internet address */
+
+14. GETSOCKOPT FUNCTION
+#include <sys/socket.h>
+#include <sys/types.h>
+int getsockopt(int s, int level, int optname, void *optval, socklen_t *optlen_t)
+/* s - socket file descriptor 
+*  level - this should be set to SOL_SOCKET
+*  optname - there are a lot of them.Typically consider these options:
+* SO_BINDTODEVICE - 
+* SO_REUSEADDR - 
+* SO_BROADCAST -
