@@ -1,0 +1,45 @@
+/* Here will go common structs which are used when working with sockets */
+#include <netinet/in.h>
+
+1.SOCKADDR 
+struct sockaddr {
+        unsigned short sa_family;       // address family
+        char           sa_data[14];     // protocol address
+};
+/* This is a generic struct which is often used when casting pointers from pointing to other more specific structs. */
+
+2. SOCKADDR_IN
+struct sockaddr_in {
+        short         sin_family;       // families: AF_INET, AF_INET6
+        unsigned short sin_port;        // port number in network byte order   
+        struct        in_addr;
+        char          sin_zero[0];
+};
+
+3. IN_ADDR
+struct in_addr {
+        unsigned long s_addr;           // this is internet address in network form (after executing inet_pton())
+};
+
+4. SOCKADDR_IN6
+struct sockaddr_in6 {
+        uint16_t        sin6_family;    // address family AF_INET6
+        uint16_t        sin6_port;      // port number in network byte order
+        uint32_t        sin6_flowinfo;
+        struct in6_addr sin6_addr;
+        uint32_t        sin6_scope_id;
+};
+
+5. IN6_ADDR
+struct in6_addr {
+        unsigned char s6_addr[16];      // this is internet address in network form (after executing inet_pton())
+};
+
+6. SOCKADDR_STORAGE
+struct sockaddr_storage {
+        sa_family_t     ss_family;      // address family
+        char            __ss_pad1[_SS_PAD1SIZE];
+        int64_t         __ss_align;
+        char            __ss_pad2[_SS_PAD2SIZE];
+};
+/* This is a generic container used to hold sockaddr_in or sockaddr_in6 structs data */
