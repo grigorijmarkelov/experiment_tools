@@ -117,10 +117,18 @@ int inet_pton(int af, const char *src, void *dst)
 14. GETSOCKOPT FUNCTION
 #include <sys/socket.h>
 #include <sys/types.h>
-int getsockopt(int s, int level, int optname, void *optval, socklen_t *optlen_t)
+int getsockopt(int s, int level, int optname, void *optval, socklen_t *optlen)
 /* s - socket file descriptor 
 *  level - this should be set to SOL_SOCKET
 *  optname - there are a lot of them.Typically consider these options:
-* SO_BINDTODEVICE - 
-* SO_REUSEADDR - 
-* SO_BROADCAST -
+* SO_BINDTODEVICE - bind socket to device name like ethx,so you don't need to bind to an ip address 
+* SO_REUSEADDR - allows multiple sockets to bind to a specific port
+* SO_BROADCAST - useful only for SOCK_DGRAM, allows for dgram sockets to send and receive packets sent to or from broadcast address
+* optval - is a pointer pointer to a value in question
+* optlen - is a pointer to a length of optval, commonly length is sizeof(int) */
+
+15. SETSOCKOPT FUNCTION
+#include <sys/socket.h>
+#include <sys/types.h>
+int setsockopt(int s, int level, int optname, const void *optval, socklen_t *optlen)
+/* everything goes the same as with getsockopt() except that optval points to a const value */
