@@ -1,0 +1,39 @@
+/* Creating the message queue or connecting to already existing message with known key  */
+#include <sys/msg.h>
+int msgget(key_t key, int msgflags);      /* creating the unique message queue relying upon unique key argument */
+key_t ftok("/path/to/some/specific/file", int id);  /* creating unique key_t value using path to some readable file 
+* and arbitrary id */
+
+/* Structure of messages */
+struct msgbuf {
+  long mtype;
+  struct some_truct {
+    /* a lot of stuff
+    * goes here */
+  } some_struct_name;
+}
+/* sending to the queue */
+int msgsnd(int msqid, const void *mptr, size_t msgsize, int msgflags);
+/* msqid - is a message queue id returned by msgget() 
+*  mptr  - is a pointer to data that you will put into the queue
+* msgsize - is a size in bytes of data, not counting  the long mtype
+* msgflags - is optional, just set to zero */
+
+/* receiving to the queue */
+int msgrcv(int msqid, void *mptr, size_t msgsize, long msgtype, int msgflag);
+/* four arguments are the same 
+* msgtype - has 3 types of value:
+* 0 - retrieving the next message from queue regardless of its mtype
+* positive - get the next message with mtype equal to its msgtype
+* negative - retrieve the first message on the queue whose mtype is lte to the absolute value of msgtype argument */
+
+/* destroying the message queue */
+/* the are standart shell commands ipcs to list the available message queues and
+*  ipcrm  to delete the specific message queue */
+
+/* delete programmmatically using the msgctl function */\
+int msgctl(int msqid, int cmd, struct msqid_ds *buf)
+/* msqid - is a known message queue id
+*  cmd   - there are many of them, for destroying use IPC_RMID
+*  buf   - is a pointer, for deleting purpose set it to NULL */
+
